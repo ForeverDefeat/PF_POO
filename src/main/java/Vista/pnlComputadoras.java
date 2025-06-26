@@ -9,10 +9,11 @@ public class pnlComputadoras extends javax.swing.JPanel {
 
     public pnlComputadoras() {
         initComponents();
+
         List<Computadora> pcs = ComputadoraDAO.obtenerTodas();
         for (Computadora pc : pcs) {
             PanelComputadora tarjeta = new PanelComputadora(pc);
-            panelContenedorPCs.add(tarjeta); // este panel lo agregas tú en diseño
+            JPanelContenedorPCs.add(tarjeta); // este panel lo agregas tú en diseño
         }
 
         revalidate();
@@ -28,27 +29,30 @@ public class pnlComputadoras extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
         JPanelContenedorPCs = new javax.swing.JPanel();
 
-        JPanelContenedorPCs.setLayout(new java.awt.GridLayout(1, 0));
-        jScrollPane1.setViewportView(JPanelContenedorPCs);
+        JPanelContenedorPCs.setLayout(new java.awt.GridLayout(4, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 1, Short.MAX_VALUE)
+                .addComponent(JPanelContenedorPCs, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 1, Short.MAX_VALUE)
+                .addComponent(JPanelContenedorPCs, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanelContenedorPCs;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

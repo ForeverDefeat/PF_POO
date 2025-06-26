@@ -38,14 +38,14 @@ public class pnlConsumo extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(149, 149, 149)
                 .addComponent(jLabel1)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(489, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(134, 134, 134)
                 .addComponent(jLabel1)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(351, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
