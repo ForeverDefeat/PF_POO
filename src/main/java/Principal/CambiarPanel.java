@@ -25,4 +25,4 @@ public class CambiarPanel {
         this.container.repaint();
     }
 
-}//--> fin clase
+}

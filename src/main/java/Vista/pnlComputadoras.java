@@ -1,20 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-package Paneles;
+package Vista;
 
-/**
- *
- * @author User
- */
+import Componentes.PanelComputadora;
+import DAO.ComputadoraDAO;
+import Modelo.Computadora;
+import java.util.List;
+
 public class pnlComputadoras extends javax.swing.JPanel {
 
-    /**
-     * Creates new form pnlHome
-     */
     public pnlComputadoras() {
         initComponents();
+        List<Computadora> pcs = ComputadoraDAO.obtenerTodas();
+        for (Computadora pc : pcs) {
+            PanelComputadora tarjeta = new PanelComputadora(pc);
+            panelContenedorPCs.add(tarjeta); // este panel lo agregas tú en diseño
+        }
+
+        revalidate();
+        repaint();
     }
 
     /**
@@ -26,31 +28,27 @@ public class pnlComputadoras extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        JPanelContenedorPCs = new javax.swing.JPanel();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Computadoras");
+        JPanelContenedorPCs.setLayout(new java.awt.GridLayout(1, 0));
+        jScrollPane1.setViewportView(JPanelContenedorPCs);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel JPanelContenedorPCs;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

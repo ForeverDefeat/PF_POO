@@ -22,7 +22,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(this);
         this.btnComputadoras.setSelected(true);
 
-        new CambiarPanel(pnlPrincipal, new Paneles.pnlComputadoras());
+        new CambiarPanel(pnlPrincipal, new Vista.pnlSesiones());
     }
 
     /**
@@ -39,6 +39,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pnlTop = new javax.swing.JPanel();
         jToggleButton1 = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         menuLat = new javax.swing.JPanel();
         sesiones = new rsbuttom.RSButtonMetro();
         btnConsumo = new rsbuttom.RSButtonMetro();
@@ -69,12 +70,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 pnlTopMousePressed(evt);
             }
         });
-        pnlTop.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 3, 3));
+        pnlTop.setLayout(new java.awt.GridLayout());
 
         jToggleButton1.setBackground(new java.awt.Color(204, 255, 255));
         jToggleButton1.setForeground(new java.awt.Color(204, 255, 255));
         jToggleButton1.setIcon(new javax.swing.ImageIcon("I:\\PF_POO\\GestionLanCenter\\src\\Imagenes\\menu.png")); // NOI18N
         jToggleButton1.setBorder(null);
+        jToggleButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton1ActionPerformed(evt);
@@ -85,6 +87,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Mongolian Baiti", 3, 36)); // NOI18N
         jLabel1.setText("Gestion Lan Center");
         pnlTop.add(jLabel1);
+
+        jLabel3.setText("Hora y Fecha");
+        pnlTop.add(jLabel3);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -293,7 +298,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void configuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracionActionPerformed
         // TODO add your handling code here:
-        new CambiarPanel(pnlPrincipal, new Paneles.pnlConfiguracion());
+        new CambiarPanel(pnlPrincipal, new Vista.pnlConfiguracion());
         if (this.configuracion.isSelected()) {
             this.configuracion.setColorNormal(new Color(239, 238, 244));
             this.configuracion.setColorHover(new Color(204, 204, 204));
@@ -333,7 +338,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputadorasActionPerformed
         // TODO add your handling code here:
-        new CambiarPanel(pnlPrincipal, new Paneles.pnlComputadoras());
+        new CambiarPanel(pnlPrincipal, new Vista.pnlComputadoras());
         if (this.btnComputadoras.isSelected()) {
             this.btnComputadoras.setColorNormal(new Color(204, 204, 204));
             this.btnComputadoras.setColorHover(new Color(204, 204, 204));
@@ -373,7 +378,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturacionActionPerformed
         // TODO add your handling code here:
-        new CambiarPanel(pnlPrincipal, new Paneles.pnlFacturacion());
+        new CambiarPanel(pnlPrincipal, new Vista.pnlFacturacion());
         if (this.btnFacturacion.isSelected()) {
             this.btnFacturacion.setColorNormal(new Color(239, 238, 244));
             this.btnFacturacion.setColorHover(new Color(204, 204, 204));
@@ -414,7 +419,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsumoActionPerformed
         // TODO add your handling code here:
         btnConsumo.setBorder(new EmptyBorder(10,0,10,0));
-        new CambiarPanel(pnlPrincipal, new Paneles.pnlConsumo());
+        new CambiarPanel(pnlPrincipal, new Vista.pnlConsumo());
         if (this.btnConsumo.isSelected()) {
             this.btnConsumo.setColorNormal(new Color(239, 238, 244));
             this.btnConsumo.setColorHover(new Color(204, 204, 204));
@@ -454,7 +459,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void sesionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sesionesActionPerformed
         // TODO add your handling code here:
-        new CambiarPanel(pnlPrincipal, new Paneles.pnlSesiones());
+        new CambiarPanel(pnlPrincipal, new Vista.pnlSesiones());
         if (this.sesiones.isSelected()) {
             this.sesiones.setColorNormal(new Color(204, 204, 204));
             this.sesiones.setColorHover(new Color(204, 204, 204));
@@ -538,6 +543,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private rsbuttom.RSButtonMetro btnFacturacion;
     private rsbuttom.RSButtonMetro configuracion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JPanel menuLat;
