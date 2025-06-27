@@ -79,7 +79,7 @@
             <Property name="rows" type="int" value="1"/>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+            <Component class="javax.swing.JToggleButton" name="btnMenu">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="cc" type="rgb"/>
@@ -96,10 +96,10 @@
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="lblTitulo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Mongolian Baiti" size="36" style="3"/>
@@ -107,9 +107,12 @@
                 <Property name="text" type="java.lang.String" value="Gestion Lan Center"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="lblFecha">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Hora y Fecha"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -143,10 +146,10 @@
                               <Component id="btnComputadoras" alignment="0" min="-2" pref="186" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="sesiones" min="-2" pref="128" max="-2" attributes="0"/>
+                              <Component id="btnSesiones" min="-2" pref="128" max="-2" attributes="0"/>
                               <Component id="btnConsumo" min="-2" pref="132" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="configuracion" min="-2" pref="181" max="-2" attributes="0"/>
+                          <Component id="btnConfiguracion" min="-2" pref="181" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
                   </Group>
@@ -156,7 +159,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                      <Component id="sesiones" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="btnSesiones" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       <Component id="btnConsumo" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
@@ -164,14 +167,14 @@
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       <Component id="btnComputadoras" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                      <Component id="configuracion" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="btnConfiguracion" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="rsbuttom.RSButtonMetro" name="sesiones">
+            <Component class="rsbuttom.RSButtonMetro" name="btnSesiones">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="2" name="I:\PF_POO\GestionLanCenter\src\Imagenes\Sesiones.png"/>
@@ -199,8 +202,8 @@
                 <Property name="opaque" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="sesionesMousePressed"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sesionesActionPerformed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSesionesMousePressed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSesionesActionPerformed"/>
               </Events>
             </Component>
             <Component class="rsbuttom.RSButtonMetro" name="btnConsumo">
@@ -299,7 +302,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnComputadorasActionPerformed"/>
               </Events>
             </Component>
-            <Component class="rsbuttom.RSButtonMetro" name="configuracion">
+            <Component class="rsbuttom.RSButtonMetro" name="btnConfiguracion">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="2" name="I:\PF_POO\GestionLanCenter\src\Imagenes\Configuracion.png"/>
@@ -327,8 +330,8 @@
                 <Property name="opaque" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="configuracionMousePressed"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="configuracionActionPerformed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnConfiguracionMousePressed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConfiguracionActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
