@@ -55,7 +55,7 @@
         <Container class="javax.swing.JPanel" name="pnlTop">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="cc" type="rgb"/>
+              <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[32767, 50]"/>
@@ -82,13 +82,13 @@
             <Component class="javax.swing.JToggleButton" name="btnMenu">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                  <Color blue="99" green="99" red="0" type="rgb"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="cc" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="I:\PF_POO\GestionLanCenter\src\Imagenes\menu.png"/>
+                  <Image iconType="3" name="/Images/menu.png"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
@@ -149,7 +149,7 @@
                               <Component id="btnSesiones" min="-2" pref="128" max="-2" attributes="0"/>
                               <Component id="btnConsumo" min="-2" pref="132" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="btnConfiguracion" min="-2" pref="181" max="-2" attributes="0"/>
+                          <Component id="btnConfiguracion" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
                   </Group>
@@ -168,7 +168,7 @@
                       <Component id="btnComputadoras" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="btnConfiguracion" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="506" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -177,7 +177,7 @@
             <Component class="rsbuttom.RSButtonMetro" name="btnSesiones">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="I:\PF_POO\GestionLanCenter\src\Imagenes\Sesiones.png"/>
+                  <Image iconType="3" name="/Images/Sesiones.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Sesiones"/>
                 <Property name="colorBorde" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -209,7 +209,7 @@
             <Component class="rsbuttom.RSButtonMetro" name="btnConsumo">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="I:\PF_POO\GestionLanCenter\src\Imagenes\Consumo.png"/>
+                  <Image iconType="3" name="/Images/Consumo.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Consumo"/>
                 <Property name="colorBorde" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -241,7 +241,7 @@
             <Component class="rsbuttom.RSButtonMetro" name="btnFacturacion">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="I:\PF_POO\GestionLanCenter\src\Imagenes\Factura.png"/>
+                  <Image iconType="3" name="/Images/Factura.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Facturacion"/>
                 <Property name="colorBorde" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -273,7 +273,7 @@
             <Component class="rsbuttom.RSButtonMetro" name="btnComputadoras">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="I:\PF_POO\GestionLanCenter\src\Imagenes\Computadoras.png"/>
+                  <Image iconType="3" name="/Images/Computadoras.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Computadoras"/>
                 <Property name="colorBorde" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -305,7 +305,7 @@
             <Component class="rsbuttom.RSButtonMetro" name="btnConfiguracion">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="I:\PF_POO\GestionLanCenter\src\Imagenes\Configuracion.png"/>
+                  <Image iconType="3" name="/Images/Configuracion.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Configuracion"/>
                 <Property name="colorBorde" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

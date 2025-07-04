@@ -5,17 +5,18 @@ import java.sql.Timestamp;
 public class Sesion {
 
     private int id;
-    private int computadoraId;
+    private int idComputadora;
     private Timestamp horaInicio;
     private Timestamp horaFin;
     private long duracionMinutos;
     private double monto;
+    private String estado;
 
     public Sesion() {
     }
 
     public Sesion(int computadoraId, Timestamp horaInicio) {
-        this.computadoraId = computadoraId;
+        this.idComputadora = computadoraId;
         this.horaInicio = horaInicio;
     }
 
@@ -28,12 +29,12 @@ public class Sesion {
         this.id = id;
     }
 
-    public int getComputadoraId() {
-        return computadoraId;
+    public int getIdComputadora() {
+        return idComputadora;
     }
 
-    public void setComputadoraId(int computadoraId) {
-        this.computadoraId = computadoraId;
+    public void setIdComputadora(int idComputadora) {
+        this.idComputadora = idComputadora;
     }
 
     public Timestamp getHoraInicio() {
@@ -67,4 +68,13 @@ public class Sesion {
     public void setMonto(double monto) {
         this.monto = monto;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
 }

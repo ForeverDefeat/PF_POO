@@ -1,19 +1,18 @@
-
 package Modelo;
 
 public class Computadora {
 
     private int id;              // ID único en base de datos
-    private int numero;          // Número visible de la PC (ej. PC 1, PC 2...)
+    private String numero;          // Número visible de la PC (ej. PC 1, PC 2...)
     private String estado;       // "OCUPADA" o "LIBRE"
-    private String observacion;  // Por si deseas agregar mensajes como "Requiere mantenimiento"
+    private String observacion;  // Mensajes como "Requiere mantenimiento"
 
-    // Constructor vacío (necesario para algunas operaciones con frameworks)
+    // Constructor vacío
     public Computadora() {
     }
 
     // Constructor completo
-    public Computadora(int id, int numero, String estado, String observacion) {
+    public Computadora(int id, String numero, String estado, String observacion) {
         this.id = id;
         this.numero = numero;
         this.estado = estado;
@@ -29,11 +28,11 @@ public class Computadora {
         this.id = id;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -52,4 +51,5 @@ public class Computadora {
     public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
+
 }

@@ -73,7 +73,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1500, 1000));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        pnlTop.setBackground(new java.awt.Color(204, 255, 255));
+        pnlTop.setBackground(new java.awt.Color(0, 153, 153));
         pnlTop.setMaximumSize(new java.awt.Dimension(32767, 50));
         pnlTop.setMinimumSize(new java.awt.Dimension(349, 50));
         pnlTop.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -88,9 +88,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         pnlTop.setLayout(new java.awt.GridLayout(1, 0));
 
-        btnMenu.setBackground(new java.awt.Color(204, 255, 255));
+        btnMenu.setBackground(new java.awt.Color(0, 153, 153));
         btnMenu.setForeground(new java.awt.Color(204, 255, 255));
-        btnMenu.setIcon(new javax.swing.ImageIcon("I:\\PF_POO\\GestionLanCenter\\src\\Imagenes\\menu.png")); // NOI18N
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/menu.png"))); // NOI18N
         btnMenu.setBorder(null);
         btnMenu.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +121,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuLat.setBackground(new java.awt.Color(204, 204, 204));
         menuLat.setPreferredSize(new java.awt.Dimension(100, 900));
 
-        btnSesiones.setIcon(new javax.swing.ImageIcon("I:\\PF_POO\\GestionLanCenter\\src\\Imagenes\\Sesiones.png")); // NOI18N
+        btnSesiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Sesiones.png"))); // NOI18N
         btnSesiones.setText("Sesiones");
         btnSesiones.setColorBorde(null);
         btnSesiones.setColorNormal(new java.awt.Color(240, 240, 240));
@@ -142,7 +142,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnConsumo.setIcon(new javax.swing.ImageIcon("I:\\PF_POO\\GestionLanCenter\\src\\Imagenes\\Consumo.png")); // NOI18N
+        btnConsumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Consumo.png"))); // NOI18N
         btnConsumo.setText("Consumo");
         btnConsumo.setColorBorde(null);
         btnConsumo.setColorNormal(new java.awt.Color(240, 240, 240));
@@ -163,7 +163,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnFacturacion.setIcon(new javax.swing.ImageIcon("I:\\PF_POO\\GestionLanCenter\\src\\Imagenes\\Factura.png")); // NOI18N
+        btnFacturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Factura.png"))); // NOI18N
         btnFacturacion.setText("Facturacion");
         btnFacturacion.setColorBorde(null);
         btnFacturacion.setColorNormal(new java.awt.Color(240, 240, 240));
@@ -184,7 +184,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnComputadoras.setIcon(new javax.swing.ImageIcon("I:\\PF_POO\\GestionLanCenter\\src\\Imagenes\\Computadoras.png")); // NOI18N
+        btnComputadoras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Computadoras.png"))); // NOI18N
         btnComputadoras.setText("Computadoras");
         btnComputadoras.setColorBorde(null);
         btnComputadoras.setColorNormal(new java.awt.Color(240, 240, 240));
@@ -205,7 +205,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnConfiguracion.setIcon(new javax.swing.ImageIcon("I:\\PF_POO\\GestionLanCenter\\src\\Imagenes\\Configuracion.png")); // NOI18N
+        btnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Configuracion.png"))); // NOI18N
         btnConfiguracion.setText("Configuracion");
         btnConfiguracion.setColorBorde(null);
         btnConfiguracion.setColorNormal(new java.awt.Color(240, 240, 240));
@@ -257,7 +257,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(btnComputadoras, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(btnConfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(506, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();

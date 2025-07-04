@@ -3,62 +3,103 @@ package Vista;
 import Logica.SesionServicio;
 import Modelo.Computadora;
 import DAO.ComputadoraDAO;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import DAO.SesionDAO;
+import Modelo.Sesion;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.Instant;
+//import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 public class pnlSesiones extends javax.swing.JPanel {
 
-    private SesionServicio sesionServicio = new SesionServicio();
+    private DefaultTableModel modeloSesiones;
     private Timer timer;
-    private int idComputadoraSeleccionada = -1;
-    private long tiempoInicioMillis;
 
     public pnlSesiones() {
         initComponents();
-        cargarComputadoras();
+        cargarSesionesDesdeBD();
         cargarComputadorasEnCombo();
+        timer = new Timer(1000, e -> {
+            for (int i = 0; i < modeloSesiones.getRowCount(); i++) {
+                Timestamp inicio = (Timestamp) modeloSesiones.getValueAt(i, 1); // columna horaInicio
+                long minutos = Duration.between(inicio.toInstant(), Instant.now()).toMinutes();
+                long segundos = Duration.between(inicio.toInstant(), Instant.now()).toSeconds() % 60;
+
+                String tiempo = String.format("%02d:%02d", minutos, segundos);
+                modeloSesiones.setValueAt(tiempo, i, 2); // columna tiempoTranscurrido
+            }
+        });
+        timer.start();
     }
 
-    private void cargarComputadoras() {
+    private void cargarSesionesDesdeBD() {
+        String[] columnas = {"Número PC", "Hora Inicio", "Tiempo Transcurrido", "Estado"};
+        modeloSesiones = new DefaultTableModel(columnas, 0);
+        tblSesiones.setModel(modeloSesiones);
+
         List<Computadora> pcs = ComputadoraDAO.obtenerTodas();
-        cmbComputadoras.removeAllItems();
+
         for (Computadora pc : pcs) {
-            cmbComputadoras.addItem("PC " + pc.getNumero() + " (ID: " + pc.getId() + ")");
+            Sesion sesionActiva = SesionDAO.obtenerSesionActiva(pc.getId());
+
+            String horaInicio = (sesionActiva != null) ? sesionActiva.getHoraInicio().toLocalDateTime().toString() : "--:--";
+            String tiempo = (sesionActiva != null)
+                    ? calcularTiempoTranscurrido(sesionActiva.getHoraInicio(), sesionActiva.getHoraFin())
+                    : "--:--";
+
+            modeloSesiones.addRow(new Object[]{
+                pc.getNumero(), horaInicio, tiempo, pc.getEstado()
+            });
         }
+    }
+
+    private String calcularTiempoTranscurrido(Timestamp inicio, Timestamp fin) {
+        if (inicio == null) {
+            return "--:--";
+        }
+        Instant finInstant = (fin != null) ? fin.toInstant() : Instant.now();
+        Duration duracion = Duration.between(inicio.toInstant(), finInstant);
+        long minutos = duracion.toMinutes();
+        long segundos = duracion.minusMinutes(minutos).getSeconds();
+        return String.format("%02d:%02d", minutos, segundos);
     }
 
     private void cargarComputadorasEnCombo() {
-        cmbComputadoras.removeAllItems(); // Limpia primero
-
-        List<Computadora> pcs = ComputadoraDAO.obtenerTodas();
-
-        for (Computadora pc : pcs) {
-            String texto = "PC " + pc.getNumero() + " - " + pc.getEstado();
-            cmbComputadoras.addItem(texto);
+        cmbComputadora.removeAllItems(); // Limpiar combo
+        List<Computadora> lista = ComputadoraDAO.obtenerTodas();
+        for (Computadora pc : lista) {
+            cmbComputadora.addItem(pc.getNumero());
         }
     }
 
-    private void iniciarContador() {
-        tiempoInicioMillis = System.currentTimeMillis(); // guarda la hora actual
+    private void actualizarTablaSesiones() {
+        List<Sesion> sesiones = SesionDAO.obtenerTodas();
 
-        if (timer != null) {
-            timer.stop(); // evita múltiples timers
+        modeloSesiones.setRowCount(0); // limpiar tabla
+
+        for (Sesion s : sesiones) {
+            String numeroPC = ComputadoraDAO.obtenerNumeroPorId(s.getIdComputadora());
+            String estado = s.getEstado();
+            String tiempo = calcularTiempoTranscurrido(s.getHoraInicio(), s.getHoraFin());
+
+            modeloSesiones.addRow(new Object[]{
+                numeroPC,
+                s.getHoraInicio(),
+                tiempo,
+                estado
+            });
         }
 
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                long ahora = System.currentTimeMillis();
-                long segundos = (ahora - tiempoInicioMillis) / 1000;
-                long minutos = segundos / 60;
-                long segundosRestantes = segundos % 60;
-                lblTiempoUso.setText(String.format("%02d:%02d", minutos, segundosRestantes));
-            }
-        });
-
-        timer.start();
+        tblSesiones.clearSelection();
+        modeloSesiones.fireTableDataChanged();
+        tblSesiones.revalidate();
+        tblSesiones.repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -66,29 +107,17 @@ public class pnlSesiones extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        cmbComputadoras = new javax.swing.JComboBox<>();
         btnIniciarSesion = new javax.swing.JButton();
         btnFinalizarSesion = new javax.swing.JButton();
-        lblEstado = new javax.swing.JLabel();
-        lblTiempoUso = new javax.swing.JLabel();
-        lblComputadora = new javax.swing.JLabel();
-        lblTiempoLabel = new javax.swing.JLabel();
-        lblEstadoLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSesiones = new javax.swing.JTable();
+        cmbComputadora = new javax.swing.JComboBox<>();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         setLayout(new java.awt.GridBagLayout());
 
-        cmbComputadoras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(106, 26, 0, 209);
-        add(cmbComputadoras, gridBagConstraints);
-
-        btnIniciarSesion.setText("Iniciar");
+        btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnIniciarSesion.setText("Iniciar Sesion");
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarSesionActionPerformed(evt);
@@ -96,100 +125,147 @@ public class pnlSesiones extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(106, 18, 503, 0);
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 5);
         add(btnIniciarSesion, gridBagConstraints);
 
-        btnFinalizarSesion.setText("Finalizar");
+        btnFinalizarSesion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnFinalizarSesion.setText("Finalizar Sesion");
         btnFinalizarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFinalizarSesionActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(106, 187, 503, 0);
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 10);
         add(btnFinalizarSesion, gridBagConstraints);
 
-        lblEstado.setText("Estado");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(109, 215, 0, 0);
-        add(lblEstado, gridBagConstraints);
+        tblSesiones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tblSesiones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Numero PC", "Hora Inicio", "Tiempo", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        lblTiempoUso.setText("Tiempo");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(109, 71, 0, 0);
-        add(lblTiempoUso, gridBagConstraints);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
-        lblComputadora.setText("lblComputadoras");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblSesiones);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        add(lblComputadora, gridBagConstraints);
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 5, 10);
+        add(jScrollPane1, gridBagConstraints);
 
-        lblTiempoLabel.setText("TiempoLabel");
+        cmbComputadora.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cmbComputadora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbComputadora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbComputadoraActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        add(lblTiempoLabel, gridBagConstraints);
-
-        lblEstadoLabel.setText("EstadoLabel");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        add(lblEstadoLabel, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 10);
+        add(cmbComputadora, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFinalizarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarSesionActionPerformed
         // TODO add your handling code here:
-        if (idComputadoraSeleccionada != -1) {
-            boolean ok = sesionServicio.finalizarSesion(idComputadoraSeleccionada);
-            if (ok) {
-                lblEstado.setText("Libre");
-                lblTiempoUso.setText("--:--");
-                if (timer != null) {
-                    timer.stop();
-                }
-            }
+        String numeroSeleccionado = (String) cmbComputadora.getSelectedItem();
+        if (numeroSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione una computadora.");
+            return;
+        }
+
+        int id = ComputadoraDAO.obtenerIdPorNumero(numeroSeleccionado);
+        boolean ok = new SesionServicio().finalizarSesion(id);
+
+        if (ok) {
+            JOptionPane.showMessageDialog(this, "Sesión finalizada.");
+            actualizarTablaSesiones();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo finalizar la sesión.");
         }
     }//GEN-LAST:event_btnFinalizarSesionActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
-        int index = cmbComputadoras.getSelectedIndex();
-        if (index != -1) {
-            Computadora pc = ComputadoraDAO.obtenerTodas().get(index);
-            idComputadoraSeleccionada = pc.getId();
+        String numeroSeleccionado = (String) cmbComputadora.getSelectedItem();
+        if (numeroSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione una computadora.");
+            return;
+        }
 
-            boolean ok = sesionServicio.iniciarSesion(idComputadoraSeleccionada);
-            if (ok) {
-                lblEstado.setText("Ocupada");
-                iniciarContador();
-            }
+        int id = ComputadoraDAO.obtenerIdPorNumero(numeroSeleccionado);
+        boolean ok = new SesionServicio().iniciarSesion(id);
+
+        if (ok) {
+            JOptionPane.showMessageDialog(this, "Sesión iniciada.");
+            actualizarTablaSesiones();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo iniciar la sesión.");
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void cmbComputadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbComputadoraActionPerformed
+        // TODO add your handling code here:
+        cmbComputadora.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String numeroSeleccionado = (String) cmbComputadora.getSelectedItem();
+
+                    for (int i = 0; i < tblSesiones.getRowCount(); i++) {
+                        String numeroTabla = tblSesiones.getValueAt(i, 0).toString();
+                        if (numeroTabla.equalsIgnoreCase(numeroSeleccionado)) {
+                            tblSesiones.setRowSelectionInterval(i, i); // selecciona esa fila
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    }//GEN-LAST:event_cmbComputadoraActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFinalizarSesion;
     private javax.swing.JButton btnIniciarSesion;
-    private javax.swing.JComboBox<String> cmbComputadoras;
-    private javax.swing.JLabel lblComputadora;
-    private javax.swing.JLabel lblEstado;
-    private javax.swing.JLabel lblEstadoLabel;
-    private javax.swing.JLabel lblTiempoLabel;
-    private javax.swing.JLabel lblTiempoUso;
+    private javax.swing.JComboBox<String> cmbComputadora;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblSesiones;
     // End of variables declaration//GEN-END:variables
 }
